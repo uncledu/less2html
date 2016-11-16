@@ -2,9 +2,11 @@
   "name": "less2html",
   "version": "0.0.1",
   "description": "generate html via less file",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "start": "babel-node src/index.js",
+    "build": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,14 @@
   },
   "homepage": "https://github.com/uncledu/less2html#readme",
   "dependencies": {
-    "less": "^2.7.1"
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-plugin-transform-es2015-destructuring": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-es2015-parameters": "^6.18.0",
+    "babel-plugin-transform-es2015-spread": "^6.8.0",
+    "babel-plugin-transform-strict-mode": "^6.18.0",
+    "less": "^2.7.1",
+    "yargs": "^6.4.0"
   }
 }

@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+'use strict'
+
+//var concat = require('concat-stream')
+var  lessToHtml= require('./')
+var fs = require('fs')
+var yargs = require('yargs')
+var argv = yargs
+  .usage('Usage: $0 [ options ]')
+  .example('$0 -f for.less -o bar.html', 'generate bar.html base the for.less hierachy')
+  //.boolean('source-map')
+  //.describe('source-map', 'include source map')
+  .alias('f', 'file')
+  .nargs('f',1)
+  .describe('f', 'specify the less file')
+  .alias('o','output')
+  .nargs('o',1)
+  .describe('o','specify the output file name')
+  .help('h')
+  .alias('h', 'help')
+  .global('[file,help,output]')
+  .argv
+
+var inStream = argv._[0] ? fs.createReadStream(argv._[0], 'utf8') : process.stdin
+inStream.pipe(concat(function (buf) {
+  var str = buf.toString('utf8')
+  var opts = {
+    //sourceMap: argv['source-map']
+  }
+  try {
+    var out = lessToHtml(str, opts)
+    console.log(out)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+})).on('error', function (err) {
+  console.error(err)
+  process.exit(1)
+})
