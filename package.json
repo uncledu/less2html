@@ -8,6 +8,9 @@
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir lib"
   },
+  "bin": {
+    "less2html": "lib/bin.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uncledu/less2html.git"
@@ -30,6 +33,7 @@
     "babel-plugin-transform-es2015-parameters": "^6.18.0",
     "babel-plugin-transform-es2015-spread": "^6.8.0",
     "babel-plugin-transform-strict-mode": "^6.18.0",
+    "concat-stream": "^1.5.2",
     "less": "^2.7.1",
     "yargs": "^6.4.0"
   }
