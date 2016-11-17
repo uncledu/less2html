@@ -1,3 +1,12 @@
-language:node_js
+language: node_js
 node_js:
-  - "4.5.x"
+- "4"
+sudo: false
+script: npm run $COMMAND
+env:
+  matrix:
+  - COMMAND=test
+  - COMMAND=coverage
+branches:
+  only:
+  - master
