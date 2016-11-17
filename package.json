@@ -4,7 +4,7 @@
   "description": "generate html via less file",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run test",
+    "test": "jasmine",
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir lib&&babel test --out-dir spec"
     
