@@ -68,11 +68,12 @@ export default class LessToHtml {
     node.children = this.getChildren(tree)
     return node
   }
-  parse(data,callback) {
+  parse(data,cb) {
     less.parse(data, (e, tree) => {
+      console.log(data)
       let html = this.renderTag(this.iterateNodes(this.visit(tree)));
       console.log(html)
-      callback(html);
+      cb&&cb(html);
     })
   }
 }

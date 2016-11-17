@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run test",
     "start": "babel-node src/index.js",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib&&babel test --out-dir spec"
+    
   },
   "bin": {
     "less2html": "lib/bin.js"
@@ -34,6 +35,7 @@
     "babel-plugin-transform-es2015-spread": "^6.8.0",
     "babel-plugin-transform-strict-mode": "^6.18.0",
     "concat-stream": "^1.5.2",
+    "jasmine": "^2.5.2",
     "less": "^2.7.1",
     "yargs": "^6.4.0"
   }
