@@ -88,8 +88,8 @@ describe('Test Suite', () => {
     expect(lth instanceof LessToHtml).toBeTruthy()
   })
   it('should be parse correct', () => {
-    lth.parse(input,(res)=>{
-      expect(res).toEqual(result);
+    lth.parse(input).then((data)=>{
+      expect(data).toEqual(result);
     })
   })
 

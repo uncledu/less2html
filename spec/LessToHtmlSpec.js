@@ -95,8 +95,8 @@ describe('Test Suite', () => {
     expect(lth instanceof _index2.default).toBeTruthy();
   });
   it('should be parse correct', () => {
-    lth.parse(input, res => {
-      expect(res).toEqual(result);
+    lth.parse(input).then(data => {
+      expect(data).toEqual(result);
     });
   });
 
