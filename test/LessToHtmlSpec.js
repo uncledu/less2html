@@ -2,136 +2,123 @@ import LessToHtml from '../lib/index.js'
 describe('Test Suite', () => {
 
   var lth = new LessToHtml()
-  let input='div.x{color:#fff}';
-  let result="<div class=''><div class='x'></div></div>";
-  let result2 = {
-    'selectors': null,
-    'rules': [{
-      'selectors': [{
-        'elements': [{
-          'combinator': {
-            'value': '',
-            'emptyOrWhitespace': true
-          },
-          'value': 'div',
-          'index': 0,
-          'currentFileInfo': {
-            'filename': 'input',
-            'rootpath': '',
-            'currentDirectory': '',
-            'entryPath': '',
-            'rootFilename': 'input'
-          }
-        }, {
-          'combinator': {
-            'value': '',
-            'emptyOrWhitespace': true
-          },
-          'value': '.x',
-          'index': 3,
-          'currentFileInfo': {
-            'filename': 'input',
-            'rootpath': '',
-            'currentDirectory': '',
-            'entryPath': '',
-            'rootFilename': 'input'
-          }
-        }],
-        'currentFileInfo': {
-          'filename': 'input',
-          'rootpath': '',
-          'currentDirectory': '',
-          'entryPath': '',
-          'rootFilename': 'input'
-        },
-        'evaldCondition': true
-      }],
-      'rules': [{
-        'name': [{
-          'value': 'color'
-        }],
-        'value': {
-          'value': [{
-            'value': [{
-              'rgb': [255, 255, 255],
-              'alpha': 1,
-              'value': '#fff'
-            }]
-          }]
-        },
-        'important': '',
-        'merge': false,
-        'index': 6,
-        'currentFileInfo': {
-          'filename': 'input',
-          'rootpath': '',
-          'currentDirectory': '',
-          'entryPath': '',
-          'rootFilename': 'input'
-        },
-        'inline': false,
-        'allowRoot': true
-      }],
-      '_lookups': {},
-      'allowRoot': true
-    }],
-    '_lookups': {},
-    'allowRoot': true,
-    'root': true,
-    'firstRoot': true
-  };
+  let input = 'div.x{color:#fff}'
+  let result = "<div class=''><div class='x'></div></div>"
+  let inputTree = {
+    'a': {
+      'type': 'a',
+      'b': {
+        'type': 'b'
+      }
+    }
+  }
+  let expectTree = {
+    'a': {
+      'type': 'a',
+      'class': 'a',
+      'b': {
+        'type': 'b',
+        'class': 'b'
+      }
+    }
+  }
   beforeEach(function() {
-    console.log('start')
+    //console.log('start')
   })
 
   it('should be a instance of LessToHtml', () => {
     expect(lth instanceof LessToHtml).toBeTruthy()
   })
+
   it('should be parse correct', () => {
-    lth.parse(input).then((data)=>{
-      expect(data).toEqual(result);
+    lth.parse(input).then((data) => {
+      expect(data).toEqual(result)
     })
   })
 
-  //describe('when song has been paused', function() {
-  //beforeEach(function() {
-  //player.play(song);
-  //player.pause();
-  //});
+  it('should visit tree correct', () => {
+    expect(lth.visit(inputTree)).toEqual(expectTree)
+  })
 
-  //it('should indicate that the song is currently paused', function() {
-  //expect(player.isPlaying).toBeFalsy();
+  describe('should renderTag correct', () => {
+    let inputDom = {
+      'tag': {
+        'name': 'div',
+        'className': ['a', 'b']
+      },
+      'children': [{
+        'tag': {
+          'name': 'a',
+          'className': ['c', 'd']
+        },
+        'children': [{
+          'tag': {
+            'name': 'p',
+            'className': ['e', 'f']
+          }
+        }]
+      }, {
+        'tag': {
+          'name': 'span',
+          'className': []
+        }
+      }]
+    }
+    let inputDom2={
+      'tag': {
+        'name': 'div',
+        'className': ['a', 'b']
+      },
+      'children': [{
+        'tag': {
+          'name': 'a',
+          'className': ['c', 'd']
+        },
+        'children': [{
+          'tag': {
+            'name': 'p',
+            'className': ['e', 'f']
+          }
+        }]
+      }, {
+        'tag': {
+          'name': 'span'
+        }
+      }]
+    }
+    let inputDom3={
+      'tag': {
+        'name': 'div',
+        'className': ['a', 'b']
+      },
+      'children': [{
+        'tag': {
+          'name': 'a',
+          'className': ['c', 'd']
+        },
+        'children': [{
+          'tag': {
+            'name': 'p',
+            'className': ['e', 'f']
+          }
+        }]
+      }, {
+        'tag': {
+        }
+      }]
+    }
+    let expectDom = `<div class='a b'><a class='c d'><p class='e f'></p></a><span class=''></span></div>`
+    let expectDom3 = `<div class='a b'><a class='c d'><p class='e f'></p></a><div class=''></div></div>`
 
-  //// demonstrates use of 'not' with a custom matcher
-  //expect(player).not.toBePlaying(song);
-  //});
-
-  //it('should be possible to resume', function() {
-  //player.resume();
-  //expect(player.isPlaying).toBeTruthy();
-  //expect(player.currentlyPlayingSong).toEqual(song);
-  //});
-  //});
-
-  //// demonstrates use of spies to intercept and test method calls
-  //it('tells the current song if the user has made it a favorite', function() {
-  //spyOn(song, 'persistFavoriteStatus');
-
-  //player.play(song);
-  //player.makeFavorite();
-
-  //expect(song.persistFavoriteStatus).toHaveBeenCalledWith(true);
-  //});
-
-  ////demonstrates use of expected exceptions
-  //describe('#resume', function() {
-  //it('should throw an exception if song is already playing', function() {
-  //player.play(song);
-
-  //expect(function() {
-  //player.resume();
-  //}).toThrowError('song is already playing');
-  //});
-  //});
-});
+    it('should renderTag correct', () => {
+      expect(lth.renderTag(inputDom)).toEqual(expectDom)
+    })
+    it('should renderTag correct', () => {
+      expect(lth.renderTag(inputDom2)).toEqual(expectDom)
+    })
+    it('should renderTag correct', () => {
+      expect(lth.renderTag(inputDom3)).toEqual(expectDom3)
+    })
+  })
+})
 

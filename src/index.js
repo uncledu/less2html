@@ -14,15 +14,25 @@ export default class LessToHtml {
     o !== null && o !== "" & ("type" in o) ? o["class"] = o.type : void(0)
     return o
   }
+  /**
+   * dom structure
+   * {
+   *  tag:{
+   *    name:'name',
+   *    className:['a','b','c']
+   *    children:[.......]
+   *  }
+   * }
+   */
   renderTag(dom) {
     var tag = dom.tag
-    return ["<" + tag.name + " class='" + tag.className.join(" ") + "'>",
-      dom.children.length > 0 ?
-      (dom.children.map(child => {
-        return this.renderTag(child)
-      })).join("") : "", "</" + tag.name + ">"
-    ].join("")
+    //var temp= ["<" + tag.name + " class='" + tag.className.join(" ") + "'>", (dom.children&&dom.children.length > 0) ? (dom.children.map(child => { return this.renderTag(child)})).join("") : "", "</" + tag.name + ">" ]
+    let re=`<${tag.name?tag.name:"div"} class='${tag.className?tag.className.join(" "):""}'>`
+    let body=(dom.children&&dom.children.length > 0) ? (dom.children.map(child => { return this.renderTag(child)})).join("") : "";
+    let er=`</${tag.name?tag.name:"div"}>`
+    return re+body+er
   }
+
   getTag(node) {
     return node.selectors ? this.buildTag(node.selectors[0].elements) : {
       "name": "div",
