@@ -9,3 +9,4 @@ env:
 branches:
   only:
   - master
+after_script: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage

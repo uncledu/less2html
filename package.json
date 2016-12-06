@@ -4,24 +4,23 @@
   "description": "generate html via less file",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "istanbul cover jasmine",
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir lib&&babel test --out-dir spec"
-    
   },
   "bin": {
     "less2html": "lib/bin.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/uncledu/less2html.git"
+    "url": "git+https://github.com/uncledu/less2html.git",
+    "type": "git"
   },
   "keywords": [
     "less2html",
     "less-to-html"
   ],
   "author": "uncledu",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/uncledu/less2html/issues"
   },
@@ -29,7 +28,7 @@
   "dependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
-    "babel-plugin-transform-es2015-destructuring": "^6.18.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.19.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-es2015-parameters": "^6.18.0",
     "babel-plugin-transform-es2015-spread": "^6.8.0",
@@ -37,6 +36,6 @@
     "concat-stream": "^1.5.2",
     "jasmine": "^2.5.2",
     "less": "^2.7.1",
-    "yargs": "^6.4.0"
+    "yargs": "^6.5.0"
   }
 }
